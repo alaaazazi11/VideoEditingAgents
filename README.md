@@ -131,7 +131,8 @@ Final edited video URL returned to user
 ### 1 — Clone the repository
 
 ```bash
-git clone https://github.com/your-username/VideoEditingAgents.git
+
+git clone https://github.com/alaaazazi11/VideoEditingAgents.git
 cd VideoEditingAgents
 ```
 
