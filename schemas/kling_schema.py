@@ -4,9 +4,13 @@ from schemas.base_schema import BaseSchema
 
 
 class KlingElementInput(BaseSchema):
-    image_url: str = Field(
+    frontal_image_url: str = Field(
         ...,
-        description="URL of the element image. Resolved from @Element1, @Element2 placeholders.",
+        description="Frontal/clear image of the element to swap in."
+    )
+    reference_image_urls: Optional[list[str]] = Field(
+        default=None,
+        description="Additional reference images from different angles (optional)."
     )
 
 
