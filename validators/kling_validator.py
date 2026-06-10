@@ -41,12 +41,23 @@ class KlingValidator(BaseValidator):
                 ))
             else:
                 for i, element in enumerate(params["elements"]):
-                    if "image_url" not in element:
+                    if "frontal_image_url" not in element:
                         self.errors.append(ValidationError(
-                            param=f"elements[{i}].image_url",
-                            reason="each element must have an image_url",
+                            param=f"elements[{i}].frontal_image_url",
+                            reason="each element must have a frontal_image_url",
                         ))
                     else:
-                        self.validate_url(f"elements[{i}].image_url", element["image_url"])
+                        self.validate_url(f"elements[{i}].frontal_image_url", element["frontal_image_url"])
+
+                    # validate reference_image_urls if present (optional)
+                    if element.get("reference_image_urls"):
+                        if not isinstance(element["reference_image_urls"], list):
+                            self.errors.append(ValidationError(
+                                param=f"elements[{i}].reference_image_urls",
+                                reason="reference_image_urls must be a list of URLs",
+                            ))
+                        else:
+                            for j, ref_url in enumerate(element["reference_image_urls"]):
+                                self.validate_url(f"elements[{i}].reference_image_urls[{j}]", ref_url)
 
         return not self.has_errors(), self.get_errors()
